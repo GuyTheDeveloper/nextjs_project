@@ -20,7 +20,7 @@ const CreatePromptPage = () => {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
-          userId: session?.user?.id,
+          userId: (session?.user as any).id,
           prompt: post.prompt,
           tag: post.tag,
         }),
