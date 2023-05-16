@@ -17,7 +17,7 @@ import { useState, useEffect, ChangeEvent } from "react";
 import PromptCard from "./prompt-card";
 
 const PromptCardList = ({
-  data,
+  data = [],
   handleTagClick,
 }: {
   data: Prompt[];
@@ -25,13 +25,15 @@ const PromptCardList = ({
 }) => {
   return (
     <div className="mt-16 prompt_layout">
-      {data.map((post) => (
-        <PromptCard
-          key={post._id}
-          post={post}
-          handleTagClick={handleTagClick}
-        />
-      ))}
+      {data.length >= 1
+        ? data.map((post) => (
+            <PromptCard
+              key={post._id}
+              post={post}
+              handleTagClick={handleTagClick}
+            />
+          ))
+        : null}
     </div>
   );
 };
@@ -42,14 +44,13 @@ const Feed = () => {
   const [searchTimeout, setSearchTimeout] = useState<string | null | any>(null);
   const [searchedResults, setSearchedResults] = useState<Prompt[] | []>([]);
 
-  const fetchPosts = async () => {
-    const res = await fetch("/api/prompt");
-    const data = await res.json();
-
-    setPosts(data);
-  };
-
   useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await fetch("/api/prompt");
+      const data = await res.json();
+
+      setPosts(data);
+    };
     fetchPosts();
   }, []);
 
