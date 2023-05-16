@@ -24,7 +24,7 @@ interface Props {
 const Profile: React.FC<Props> = ({
   name,
   desc,
-  data,
+  data = [],
   handleEdit,
   handleDelete,
 }) => {
