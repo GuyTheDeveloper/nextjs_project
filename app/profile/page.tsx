@@ -25,12 +25,12 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await fetch(`/api/users/${(session?.user as any).id}/posts`);
+      const res = await fetch(`/api/users/${(session?.user as any)?.id}/posts`);
       const data = await res.json();
 
       setPosts(data);
     };
-    if ((session?.user as any).id) fetchPosts();
+    if ((session?.user as any)?.id) fetchPosts();
   }, []);
 
   const handleEdit = (post: Prompt) => {
